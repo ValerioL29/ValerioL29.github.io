@@ -18,7 +18,7 @@
   <meta name="author" content="Jiacheng Li">
   <meta name="keywords" content="">
   
-  <title>DataStructure Intro - Day 6 - Elapsed</title>
+  <title>LeetCode Notes - 21 - Elapsed</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
 
@@ -163,7 +163,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="DataStructure Intro - Day 6">
+            <span class="h2" id="subtitle" title="LeetCode Notes - 21">
               
             </span>
 
@@ -173,8 +173,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2021-07-28 21:24" pubdate>
-        2021年7月28日 晚上
+      <time datetime="2021-07-29 14:52" pubdate>
+        2021年7月29日 下午
       </time>
     </span>
   
@@ -185,7 +185,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      151 字
+      520 字
     </span>
   
 
@@ -195,7 +195,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      2
+      7
        分钟
     </span>
   
@@ -225,24 +225,27 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">DataStructure Intro - Day 6</h1>
+            <h1 style="display: none">LeetCode Notes - 21</h1>
             
             <div class="markdown-body">
-              <p>题目：<strong>383. 赎金信</strong></p>
+              <p>题目：<strong>21. 合并两个有序链表</strong></p>
 <p>难度：<strong>简单</strong></p>
-<p>遇见次数：<strong>第一次</strong></p>
+<p>遇见次数：<strong>第二次</strong></p>
 <p>涉及知识点：</p>
 <ul>
-<li>字符串</li>
-<li>哈希表</li>
+<li>链表</li>
 </ul>
-<h2 id="提交"><a href="#提交" class="headerlink" title="提交"></a>提交</h2><h3 id="1-字母哈希计数"><a href="#1-字母哈希计数" class="headerlink" title="1. 字母哈希计数"></a>1. 字母哈希计数</h3><p><img src="https://typorastroage.oss-cn-beijing.aliyuncs.com/img/image-20210728120715643.png" srcset="/img/loading.gif" lazyload alt="提交结果"></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>&#123;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">canConstruct</span><span class="hljs-params">(String ransomNote, String magazine)</span> </span>&#123;<br>        <span class="hljs-keyword">if</span>(magazine.length() == <span class="hljs-number">0</span>)&#123;<br>            <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;<br>        &#125;<br><br>        <span class="hljs-keyword">int</span>[] dicArr = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[<span class="hljs-number">26</span>];<br><br>        <span class="hljs-keyword">for</span>(<span class="hljs-keyword">char</span> ch1 : magazine.toCharArray())&#123;<br>            dicArr[ch1 - <span class="hljs-string">&#x27;a&#x27;</span>]++;<br>        &#125;<br><br>        <span class="hljs-keyword">for</span>(<span class="hljs-keyword">char</span> ch2 : ransomNote.toCharArray())&#123;<br>            dicArr[ch2 - <span class="hljs-string">&#x27;a&#x27;</span>]--;<br><br>            <span class="hljs-keyword">if</span>(dicArr[ch2 - <span class="hljs-string">&#x27;a&#x27;</span>] &lt; <span class="hljs-number">0</span>)&#123;<br>                <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;<br>            &#125;<br>        &#125;<br><br>        <span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<h2 id="提交"><a href="#提交" class="headerlink" title="提交"></a>提交</h2><h3 id="1-一次遍历"><a href="#1-一次遍历" class="headerlink" title="1. 一次遍历"></a>1. 一次遍历</h3><p>双指针一次遍历，空间复杂度优于题解🛫</p>
+<p><img src="https://alipicbed.oss-cn-beijing.aliyuncs.com/img/image-20210729130352882.png" srcset="/img/loading.gif" lazyload alt="提交情况"></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * Definition for singly-linked list.</span><br><span class="hljs-comment"> * public class ListNode &#123;</span><br><span class="hljs-comment"> *     int val;</span><br><span class="hljs-comment"> *     ListNode next;</span><br><span class="hljs-comment"> *     ListNode() &#123;&#125;</span><br><span class="hljs-comment"> *     ListNode(int val) &#123; this.val = val; &#125;</span><br><span class="hljs-comment"> *     ListNode(int val, ListNode next) &#123; this.val = val; this.next = next; &#125;</span><br><span class="hljs-comment"> * &#125;</span><br><span class="hljs-comment"> */</span><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>&#123;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> ListNode <span class="hljs-title">mergeTwoLists</span><span class="hljs-params">(ListNode l1, ListNode l2)</span> </span>&#123;<br>        <span class="hljs-keyword">if</span>(l1 == <span class="hljs-keyword">null</span>)&#123;<br>            <span class="hljs-keyword">return</span> l2;<br>        &#125;<br><br>        <span class="hljs-keyword">if</span>(l2 == <span class="hljs-keyword">null</span>)&#123;<br>            <span class="hljs-keyword">return</span> l1;<br>        &#125;<br><br>        ListNode ans;<br><br>        ans = l1.val &gt; l2.val ? l2 : l1;<br>        ListNode dummy;<br>        <span class="hljs-keyword">while</span>(l1 != <span class="hljs-keyword">null</span> &amp;&amp; l2 != <span class="hljs-keyword">null</span>)&#123;<br>            <span class="hljs-keyword">if</span>(l1.val &lt;= l2.val)&#123;<br>                <span class="hljs-keyword">do</span>&#123;<br>                    dummy = l1;<br>                    l1 = l1.next;<br><br>                    <span class="hljs-keyword">if</span>(l1 == <span class="hljs-keyword">null</span>)&#123;<br>                        dummy.next = l2;<br>                        <span class="hljs-keyword">return</span> ans;<br>                    &#125;<br>                &#125;<span class="hljs-keyword">while</span>(l1.val &lt;= l2.val);<br><br>                dummy.next = l2;<br>            &#125;<br><br>            <span class="hljs-keyword">if</span>(l1.val &gt; l2.val)&#123;<br>                <span class="hljs-keyword">do</span>&#123;<br>                    dummy = l2;<br>                    l2 = l2.next;<br><br>                    <span class="hljs-keyword">if</span>(l2 == <span class="hljs-keyword">null</span>)&#123;<br>                        dummy.next = l1;<br>                        <span class="hljs-keyword">return</span> ans;<br>                    &#125;<br>                &#125;<span class="hljs-keyword">while</span>(l1.val &gt; l2.val);<br><br>                dummy.next = l1;<br>            &#125;<br>        &#125;<br><br>        <span class="hljs-keyword">return</span> ans;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
 
-<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><ul>
-<li>利用大小26的数组来进行计数</li>
-<li>避免使用 <code>charAt()</code> 方法，因为每次调用它会检查一遍索引值是否越界，时间复杂度就会上去</li>
-</ul>
+<h2 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h2><h3 id="递归"><a href="#递归" class="headerlink" title="递归"></a>递归</h3><h4 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h4><p>我们可以如下递归地定义两个链表里的 <code>merge</code> 操作（忽略边界情况，比如空链表等）：</p>
+<p><img src="https://alipicbed.oss-cn-beijing.aliyuncs.com/img/image-20210729130732855.png" srcset="/img/loading.gif" lazyload alt="递归条件"></p>
+<p>也就是说，两个链表头部值较小的一个节点与剩下元素的 <code>merge</code> 操作结果合并。</p>
+<h4 id="算法"><a href="#算法" class="headerlink" title="算法"></a>算法</h4><p>我们直接将以上递归过程建模，同时需要考虑边界情况。</p>
+<p>如果 <code>l1</code> 或者 <code>l2</code> 一开始就是空链表 ，那么没有任何操作需要合并，所以我们只需要返回非空链表。否则，我们要判断 <code>l1</code> 和 <code>l2</code> 哪一个链表的头节点的值更小，然后递归地决定下一个添加到结果里的节点。如果两个链表有一个为空，递归结束。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>&#123;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> ListNode <span class="hljs-title">mergeTwoLists</span><span class="hljs-params">(ListNode l1, ListNode l2)</span> </span>&#123;<br>        <span class="hljs-keyword">if</span> (l1 == <span class="hljs-keyword">null</span>) &#123;<br>            <span class="hljs-keyword">return</span> l2;<br>        &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (l2 == <span class="hljs-keyword">null</span>) &#123;<br>            <span class="hljs-keyword">return</span> l1;<br>        &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (l1.val &lt; l2.val) &#123;<br>            l1.next = mergeTwoLists(l1.next, l2);<br>            <span class="hljs-keyword">return</span> l1;<br>        &#125; <span class="hljs-keyword">else</span> &#123;<br>            l2.next = mergeTwoLists(l1, l2.next);<br>            <span class="hljs-keyword">return</span> l2;<br>        &#125;<br><br>    &#125;<br>&#125;<br><br>作者：LeetCode-Solution<br>链接：https:<span class="hljs-comment">//leetcode-cn.com/problems/merge-two-sorted-lists/solution/he-bing-liang-ge-you-xu-lian-biao-by-leetcode-solu/</span><br>来源：力扣（LeetCode）<br>著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。<br></code></pre></td></tr></table></figure>
+
 
             </div>
             <hr>
@@ -277,18 +280,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2021/07/29/LeetCode-Notes-21/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">LeetCode Notes - 21</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2021/07/24/hello-world/">
-                        <span class="hidden-mobile">Hello World</span>
+                      <a href="/2021/07/28/DataStructure-Intro-Day-6/">
+                        <span class="hidden-mobile">DataStructure Intro - Day 6</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
