@@ -18,7 +18,7 @@
   <meta name="author" content="Jiacheng Li">
   <meta name="keywords" content="">
   
-  <title>LeetCode Notes - 206 - Elapsed</title>
+  <title>LeetCode Notes - 15 - Elapsed</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
 
@@ -163,7 +163,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="LeetCode Notes - 206">
+            <span class="h2" id="subtitle" title="LeetCode Notes - 15">
               
             </span>
 
@@ -173,7 +173,7 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2021-07-30 18:16" pubdate>
+      <time datetime="2021-07-30 23:17" pubdate>
         2021年7月30日 晚上
       </time>
     </span>
@@ -185,7 +185,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      327 字
+      443 字
     </span>
   
 
@@ -195,7 +195,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      4
+      7
        分钟
     </span>
   
@@ -225,25 +225,22 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">LeetCode Notes - 206</h1>
+            <h1 style="display: none">LeetCode Notes - 15</h1>
             
             <div class="markdown-body">
-              <h1 id="Leetcode-Day-8"><a href="#Leetcode-Day-8" class="headerlink" title="Leetcode - Day 8"></a>Leetcode - Day 8</h1><p>题目：<strong>206. 反转链表</strong></p>
-<p>难度：<strong>简单</strong></p>
+              <h1 id="Leetcode-Day-8"><a href="#Leetcode-Day-8" class="headerlink" title="Leetcode - Day 8"></a>Leetcode - Day 8</h1><p>题目：<strong>15. 三数之和</strong></p>
+<p>难度：<strong>中等</strong></p>
 <p>遇见次数：<strong>第一次</strong></p>
 <p>涉及知识点：</p>
 <ul>
-<li>链表</li>
+<li>双指针</li>
+<li>数组</li>
 </ul>
-<h2 id="提交"><a href="#提交" class="headerlink" title="提交"></a>提交</h2><h3 id="1-三指针原地修改"><a href="#1-三指针原地修改" class="headerlink" title="1. 三指针原地修改"></a>1. 三指针原地修改</h3><p><img src="https://alipicbed.oss-cn-beijing.aliyuncs.com/img/image-20210730163151525.png" srcset="/img/loading.gif" lazyload alt="提交情况"></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * Definition for singly-linked list.</span><br><span class="hljs-comment"> * public class ListNode &#123;</span><br><span class="hljs-comment"> *     int val;</span><br><span class="hljs-comment"> *     ListNode next;</span><br><span class="hljs-comment"> *     ListNode() &#123;&#125;</span><br><span class="hljs-comment"> *     ListNode(int val) &#123; this.val = val; &#125;</span><br><span class="hljs-comment"> *     ListNode(int val, ListNode next) &#123; this.val = val; this.next = next; &#125;</span><br><span class="hljs-comment"> * &#125;</span><br><span class="hljs-comment"> */</span><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>&#123;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> ListNode <span class="hljs-title">reverseList</span><span class="hljs-params">(ListNode head)</span> </span>&#123;<br>        <span class="hljs-keyword">if</span>(head == <span class="hljs-keyword">null</span>)&#123;<br>            <span class="hljs-keyword">return</span> head;<br>        &#125;<br><br>        <span class="hljs-keyword">if</span>(head.next == <span class="hljs-keyword">null</span>)&#123;<br>            <span class="hljs-keyword">return</span> head;<br>        &#125;<br><br>        ListNode nextNode = <span class="hljs-keyword">new</span> ListNode(<span class="hljs-number">0</span>);<br>        ListNode preNode = <span class="hljs-keyword">new</span> ListNode(<span class="hljs-number">0</span>);<br><br>        nextNode.next = head.next;<br>        head.next = <span class="hljs-keyword">null</span>;<br>        <span class="hljs-keyword">do</span>&#123;<br>            preNode.next = head;<br><br>            head = nextNode.next;<br><br>            nextNode.next = nextNode.next.next;<br><br>            head.next = preNode.next;<br>        &#125;<span class="hljs-keyword">while</span>(nextNode.next != <span class="hljs-keyword">null</span>);<br><br>        <span class="hljs-keyword">return</span> head;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<h2 id="提交"><a href="#提交" class="headerlink" title="提交"></a>提交</h2><h3 id="1-原地修改"><a href="#1-原地修改" class="headerlink" title="1. 原地修改"></a>1. 原地修改</h3><p><strong>《超 出 时 间 限 制》</strong>🤣</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>&#123;<br>    <span class="hljs-keyword">public</span> List&lt;List&lt;Integer&gt;&gt; threeSum(<span class="hljs-keyword">int</span>[] nums) &#123;<br>        <span class="hljs-keyword">if</span>(nums.length &lt; <span class="hljs-number">3</span>)&#123;<br>            <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> ArrayList&lt;List&lt;Integer&gt;&gt;();<br>        &#125;<br><br>        Arrays.sort(nums);<br>        <br>        List&lt;List&lt;Integer&gt;&gt; ans = <span class="hljs-keyword">new</span> ArrayList&lt;List&lt;Integer&gt;&gt;();<br>        Map&lt;String, List&lt;Integer&gt;&gt; myHashmap = <span class="hljs-keyword">new</span> HashMap&lt;String, List&lt;Integer&gt;&gt;();<br>        <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> a = <span class="hljs-number">0</span>; a &lt; nums.length - <span class="hljs-number">2</span>; a++)&#123;<br>            <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> b = a + <span class="hljs-number">1</span>; b &lt; nums.length - <span class="hljs-number">1</span>; b++)&#123;<br>                <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> c = b + <span class="hljs-number">1</span>; c &lt; nums.length; c++)&#123;<br>                    <span class="hljs-keyword">if</span>(nums[a] + nums[b] == -nums[c])&#123;<br>                        List&lt;Integer&gt; curNew = <span class="hljs-keyword">new</span> ArrayList&lt;Integer&gt;();<br>                        String curStr = <span class="hljs-string">&quot;&quot;</span>;<br>                        <br>                        curNew.add(nums[a]);<br>                        curNew.add(nums[b]);<br>                        curNew.add(nums[c]);<br><br>                        <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i : curNew)&#123;<br>                            curStr = curStr + String.format(<span class="hljs-string">&quot;%d&quot;</span>, i);<br>                        &#125;<br><br>                        <span class="hljs-keyword">if</span>(myHashmap.containsKey(curStr))&#123;<br>                            <span class="hljs-keyword">continue</span>;<br>                        &#125;<br>                        <span class="hljs-keyword">else</span>&#123;<br>                            myHashmap.put(curStr,curNew);<br>                            ans.add(curNew);<br>                        &#125;<br>                    &#125;<br>                &#125;<br>            &#125;<br>        &#125;<br><br>        <span class="hljs-keyword">return</span> ans;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
 
-<h2 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h2><h3 id="迭代"><a href="#迭代" class="headerlink" title="迭代"></a>迭代</h3><p>在遍历链表时，将当前节点的 <code>next</code> 指针改为指向前一个节点。由于节点没有引用其前一个节点，因此必须事先存储其前一个节点。在更改引用之前，还需要存储后一个节点。最后返回新的头引用。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>&#123;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> ListNode <span class="hljs-title">reverseList</span><span class="hljs-params">(ListNode head)</span> </span>&#123;<br>        ListNode prev = <span class="hljs-keyword">null</span>;<br>        ListNode curr = head;<br>        <span class="hljs-keyword">while</span> (curr != <span class="hljs-keyword">null</span>) &#123;<br>            ListNode next = curr.next;<br>            curr.next = prev;<br>            prev = curr;<br>            curr = next;<br>        &#125;<br>        <span class="hljs-keyword">return</span> prev;<br>    &#125;<br>&#125;<br><br>作者：LeetCode-Solution<br>链接：https:<span class="hljs-comment">//leetcode-cn.com/problems/reverse-linked-list/solution/fan-zhuan-lian-biao-by-leetcode-solution-d1k2/</span><br>来源：力扣（LeetCode）<br>著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。<br></code></pre></td></tr></table></figure>
-
-<blockquote>
-<p>优于题解不解释</p>
-</blockquote>
+<h2 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h2><h3 id="排序-双指针"><a href="#排序-双指针" class="headerlink" title="排序+双指针"></a>排序+双指针</h3><p><img src="https://alipicbed.oss-cn-beijing.aliyuncs.com/img/image-20210730231301770.png" srcset="/img/loading.gif" lazyload alt="题解"></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> List&lt;List&lt;Integer&gt;&gt; threeSum(<span class="hljs-keyword">int</span>[] nums) &#123;<br>    List&lt;List&lt;Integer&gt;&gt; lists = <span class="hljs-keyword">new</span> ArrayList&lt;&gt;();<br>    <span class="hljs-comment">//排序</span><br>    Arrays.sort(nums);<br>    <span class="hljs-comment">//双指针</span><br>    <span class="hljs-keyword">int</span> len = nums.length;<br>    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>;i &lt; len;++i) &#123;<br>        <span class="hljs-keyword">if</span>(nums[i] &gt; <span class="hljs-number">0</span>) <span class="hljs-keyword">return</span> lists;<br><br>        <span class="hljs-keyword">if</span>(i &gt; <span class="hljs-number">0</span> &amp;&amp; nums[i] == nums[i-<span class="hljs-number">1</span>]) <span class="hljs-keyword">continue</span>;<br><br>        <span class="hljs-keyword">int</span> curr = nums[i];<br>        <span class="hljs-keyword">int</span> L = i+<span class="hljs-number">1</span>, R = len-<span class="hljs-number">1</span>;<br>        <span class="hljs-keyword">while</span> (L &lt; R) &#123;<br>            <span class="hljs-keyword">int</span> tmp = curr + nums[L] + nums[R];<br>            <span class="hljs-keyword">if</span>(tmp == <span class="hljs-number">0</span>) &#123;<br>                List&lt;Integer&gt; list = <span class="hljs-keyword">new</span> ArrayList&lt;&gt;();<br>                list.add(curr);<br>                list.add(nums[L]);<br>                list.add(nums[R]);<br>                lists.add(list);<br>                <span class="hljs-keyword">while</span>(L &lt; R &amp;&amp; nums[L+<span class="hljs-number">1</span>] == nums[L]) ++L;<br>                <span class="hljs-keyword">while</span> (L &lt; R &amp;&amp; nums[R-<span class="hljs-number">1</span>] == nums[R]) --R;<br>                ++L;<br>                --R;<br>            &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(tmp &lt; <span class="hljs-number">0</span>) &#123;<br>                ++L;<br>            &#125; <span class="hljs-keyword">else</span> &#123;<br>                --R;<br>            &#125;<br>        &#125;<br>    &#125;<br>    <span class="hljs-keyword">return</span> lists;<br>&#125;<br><br>作者：wu_yan_zu<br>链接：https:<span class="hljs-comment">//leetcode-cn.com/problems/3sum/solution/pai-xu-shuang-zhi-zhen-zhu-xing-jie-shi-python3-by/</span><br>来源：力扣（LeetCode）<br>著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。<br></code></pre></td></tr></table></figure>
 
             </div>
             <hr>
@@ -278,18 +275,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2021/07/30/LeetCode-Notes-15/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">LeetCode Notes - 15</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2021/07/30/LeetCode-Notes-83/">
-                        <span class="hidden-mobile">LeetCode Notes - 83</span>
+                      <a href="/2021/07/30/LeetCode-Notes-206/">
+                        <span class="hidden-mobile">LeetCode Notes - 206</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
