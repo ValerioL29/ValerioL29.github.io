@@ -4,6 +4,31 @@
   
   
   <entry>
+    <title>LeetCode Notes - 136</title>
+    <link href="/2021/08/29/LeetCode-Notes-136/"/>
+    <url>/2021/08/29/LeetCode-Notes-136/</url>
+    
+    <content type="html"><![CDATA[<h1 id="Leetcode-Notes-136"><a href="#Leetcode-Notes-136" class="headerlink" title="Leetcode Notes - 136"></a>Leetcode Notes - 136</h1><p>题目：<strong>136. 只出现一次的数字</strong></p><p>难度：<strong>简单</strong></p><p>遇见次数：<strong>第二次</strong></p><p>涉及知识点：</p><ul><li>位运算</li><li>异或运算</li></ul><h2 id="提交"><a href="#提交" class="headerlink" title="提交"></a>提交</h2><h3 id="1-位运算"><a href="#1-位运算" class="headerlink" title="1. 位运算"></a>1. 位运算</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>&#123;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">singleNumber</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] nums)</span> </span>&#123;<br>        <span class="hljs-keyword">int</span> ans = <span class="hljs-number">0</span>;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> num: nums) &#123;<br>            ans ^= num;<br>            System.out.println(ans);<br>        &#125;<br>        <span class="hljs-keyword">return</span> ans;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure><h2 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h2><h3 id="位运算"><a href="#位运算" class="headerlink" title="位运算"></a>位运算</h3><h4 id="思路及算法"><a href="#思路及算法" class="headerlink" title="思路及算法"></a>思路及算法</h4><p><img src="https://alipicbed.oss-cn-beijing.aliyuncs.com/img/image-20210829211115524.png" alt="136.题解"></p>]]></content>
+    
+    
+    <categories>
+      
+      <category>Leetcode Notes</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>Notes</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>LeetCode Notes - 232</title>
     <link href="/2021/07/31/LeetCode-Notes-232/"/>
     <url>/2021/07/31/LeetCode-Notes-232/</url>
