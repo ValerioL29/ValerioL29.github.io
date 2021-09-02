@@ -18,7 +18,7 @@
   <meta name="author" content="Jiacheng Li">
   <meta name="keywords" content="">
   
-  <title>LeetCode Notes - 240 - Elapsed</title>
+  <title>LeetCode Notes - 334 - Elapsed</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
 
@@ -163,7 +163,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="LeetCode Notes - 240">
+            <span class="h2" id="subtitle" title="LeetCode Notes - 334">
               
             </span>
 
@@ -173,8 +173,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2021-09-01 23:50" pubdate>
-        2021年9月1日 晚上
+      <time datetime="2021-09-02 22:59" pubdate>
+        2021年9月2日 晚上
       </time>
     </span>
   
@@ -185,7 +185,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      297 字
+      654 字
     </span>
   
 
@@ -195,7 +195,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      4
+      8
        分钟
     </span>
   
@@ -225,31 +225,27 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">LeetCode Notes - 240</h1>
+            <h1 style="display: none">LeetCode Notes - 334</h1>
             
             <div class="markdown-body">
-              <h1 id="Leetcode-Notes-240"><a href="#Leetcode-Notes-240" class="headerlink" title="Leetcode Notes - 240"></a>Leetcode Notes - 240</h1><p>题目：<strong>240. 搜索二维矩阵 II</strong></p>
+              <h1 id="Leetcode-Notes-334"><a href="#Leetcode-Notes-334" class="headerlink" title="Leetcode Notes - 334"></a>Leetcode Notes - 334</h1><p>题目：<strong>334. 递增的三元子序列</strong></p>
 <p>难度：<strong>中等</strong></p>
 <p>遇见次数：<strong>第二次</strong></p>
 <p>涉及知识点：</p>
 <ul>
-<li>二分查找</li>
-<li>搜索二维矩阵</li>
-<li>搜索二叉树</li>
+<li>贪心</li>
 </ul>
-<h2 id="提交"><a href="#提交" class="headerlink" title="提交"></a>提交</h2><h3 id="1-错就对了！"><a href="#1-错就对了！" class="headerlink" title="1. 错就对了！"></a>1. 错就对了！</h3><p>暴力法的废物…二分写不出来，麻了😭</p>
-<p><img src="https://alipicbed.oss-cn-beijing.aliyuncs.com/img/image-20210901230057218.png" srcset="/img/loading.gif" lazyload alt="暴力遍历"></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>&#123;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">searchMatrix</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[][] matrix, <span class="hljs-keyword">int</span> target)</span> </span>&#123;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> c = <span class="hljs-number">0</span>; c &lt; matrix[<span class="hljs-number">0</span>].length; c++)&#123;<br>            <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> r = <span class="hljs-number">0</span>; r &lt; matrix.length; r++)&#123;<br>                <span class="hljs-keyword">if</span>(matrix[r][c] == target) <span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>;<br>            &#125;<br>        &#125;<br><br>        <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<h2 id="提交"><a href="#提交" class="headerlink" title="提交"></a>提交</h2><h3 id="1-贪心-？"><a href="#1-贪心-？" class="headerlink" title="1. 贪心 ？"></a>1. 贪心 ？</h3><p>复读版本📕</p>
+<p><img src="https://alipicbed.oss-cn-beijing.aliyuncs.com/img/image-20210902131133263.png" srcset="/img/loading.gif" lazyload alt="伪DP"></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>&#123;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">increasingTriplet</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] nums)</span> </span>&#123;<br>        <span class="hljs-keyword">if</span>(nums.length &lt; <span class="hljs-number">3</span>) <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;<br><br>        <span class="hljs-keyword">int</span> small = Integer.MAX_VALUE;<br>        <span class="hljs-keyword">int</span> mid = Integer.MAX_VALUE;<br><br>        <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> cur : nums)&#123;<br>            <span class="hljs-keyword">if</span>(cur &lt;= small)&#123;<br>                small = cur;<br>            &#125;<br>            <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(cur &lt;= mid)&#123;<br>                mid = cur;<br>            &#125;<br>            <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(cur &gt; mid)&#123;<br>                <span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>;<br>            &#125;<br>        &#125;<br><br>        <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
 
-<h2 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h2><h3 id="剪枝"><a href="#剪枝" class="headerlink" title="剪枝"></a>剪枝</h3><h4 id="思路及算法"><a href="#思路及算法" class="headerlink" title="思路及算法"></a>思路及算法</h4><p>并不是想不到这个方法，很重要一个弯没有转过来。</p>
-<p>就是向左向右不能是同一个单调性，于是我们有——</p>
-<ul>
-<li>选左上角，往右走和往下走都增大，不能选</li>
-<li>选右下角，往上走和往左走都减小，不能选</li>
-<li>选左下角，往右走增大，往上走减小，可选</li>
-<li>选右上角，往下走增大，往左走减小，可选</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>&#123;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">searchMatrix</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[][] matrix, <span class="hljs-keyword">int</span> target)</span> </span>&#123;<br>        <span class="hljs-comment">// start our &quot;pointer&quot; in the bottom-left</span><br>        <span class="hljs-keyword">int</span> row = matrix.length-<span class="hljs-number">1</span>;<br>        <span class="hljs-keyword">int</span> col = <span class="hljs-number">0</span>;<br><br>        <span class="hljs-keyword">while</span> (row &gt;= <span class="hljs-number">0</span> &amp;&amp; col &lt; matrix[<span class="hljs-number">0</span>].length) &#123;<br>            <span class="hljs-keyword">if</span> (matrix[row][col] &gt; target) &#123;<br>                row--;<br>            &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (matrix[row][col] &lt; target) &#123;<br>                col++;<br>            &#125; <span class="hljs-keyword">else</span> &#123; <span class="hljs-comment">// found it</span><br>                <span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>;<br>            &#125;<br>        &#125;<br><br>        <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<h2 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h2><h4 id="思路及算法"><a href="#思路及算法" class="headerlink" title="思路及算法"></a>思路及算法</h4><p>本题的思路非常的巧妙！</p>
+<p>首先，新建两个变量 small 和 mid ，分别用来保存题目要我们求的长度为 3 的递增子序列的最小值和中间值。</p>
+<p>接着，我们遍历数组，每遇到一个数字，我们将它和 small 和 mid 相比，若小于等于 small ，则替换 small；否则，若小于等于 mid，则替换 mid；否则，若大于 mid，则说明我们找到了长度为 3 的递增数组！</p>
+<p>上面的求解过程中有个问题：当已经找到了长度为 2 的递增序列，这时又来了一个比 small 还小的数字，为什么可以直接替换 small 呢，这样 small 和 mid 在原数组中并不是按照索引递增的关系呀？</p>
+<p>Trick 就在这里了！假如当前的 small 和 mid 为 [3, 5]，这时又来了个 1。假如我们不将 small 替换为 1，那么，当下一个数字是 2，后面再接上一个 3 的时候，我们就没有办法发现这个 [1,2,3] 的递增数组了！也就是说，我们替换最小值，是为了后续能够更好地更新中间值！</p>
+<p>另外，即使我们更新了 small ，这个 small 在 mid 后面，没有严格遵守递增顺序，但它隐含着的真相是，有一个比 small 大比 mid 小的前·最小值出现在 mid 之前。因此，当后续出现比 mid 大的值的时候，我们一样可以通过当前 small 和 mid 推断的确存在着长度为 3 的递增序列。 所以，这样的替换并不会干扰我们后续的计算！</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> &#123;</span><br><span class="hljs-keyword">public</span>:<br>  <span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">increasingTriplet</span><span class="hljs-params">(vector&lt;<span class="hljs-keyword">int</span>&gt;&amp; nums)</span> </span>&#123;<br>    <span class="hljs-keyword">int</span> len = nums.<span class="hljs-built_in">size</span>();<br>    <span class="hljs-keyword">if</span> (len &lt; <span class="hljs-number">3</span>) <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<br>    <span class="hljs-keyword">int</span> small = INT_MAX, mid = INT_MAX;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">auto</span> num : nums) &#123;<br>      <span class="hljs-keyword">if</span> (num &lt;= small) &#123;<br>        small = num;<br>      &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (num &lt;= mid) &#123;<br>        mid = num;<br>      &#125; <br>      <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (num &gt; mid) &#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;<br>      &#125;<br>    &#125;<br>    <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;    <br>  &#125;<br>&#125;;<br><br>作者：fxxuuu<br>链接：https:<span class="hljs-comment">//leetcode-cn.com/problems/increasing-triplet-subsequence/solution/c-xian-xing-shi-jian-fu-za-du-xiang-xi-jie-xi-da-b/</span><br>来源：力扣（LeetCode）<br>著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。<br></code></pre></td></tr></table></figure>
 
 
             </div>
@@ -285,9 +281,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2021/09/02/Big-Data-Intro-Chapter-4/">
+                      <a href="/2021/09/02/LeetCode-Notes-238/">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Big Data Intro - Chapter 4</span>
+                        <span class="hidden-mobile">LeetCode Notes - 238</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -295,8 +291,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2021/09/01/LeetCode-Notes-435/">
-                        <span class="hidden-mobile">LeetCode Notes - 435</span>
+                      <a href="/2021/09/02/Big-Data-Intro-Chapter-4/">
+                        <span class="hidden-mobile">Big Data Intro - Chapter 4</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

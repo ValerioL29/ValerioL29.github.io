@@ -18,7 +18,7 @@
   <meta name="author" content="Jiacheng Li">
   <meta name="keywords" content="">
   
-  <title>LeetCode Notes - 240 - Elapsed</title>
+  <title>LeetCode Notes - 238 - Elapsed</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
 
@@ -163,7 +163,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="LeetCode Notes - 240">
+            <span class="h2" id="subtitle" title="LeetCode Notes - 238">
               
             </span>
 
@@ -173,8 +173,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2021-09-01 23:50" pubdate>
-        2021年9月1日 晚上
+      <time datetime="2021-09-02 22:59" pubdate>
+        2021年9月2日 晚上
       </time>
     </span>
   
@@ -185,7 +185,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      297 字
+      629 字
     </span>
   
 
@@ -195,7 +195,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      4
+      8
        分钟
     </span>
   
@@ -225,32 +225,28 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">LeetCode Notes - 240</h1>
+            <h1 style="display: none">LeetCode Notes - 238</h1>
             
             <div class="markdown-body">
-              <h1 id="Leetcode-Notes-240"><a href="#Leetcode-Notes-240" class="headerlink" title="Leetcode Notes - 240"></a>Leetcode Notes - 240</h1><p>题目：<strong>240. 搜索二维矩阵 II</strong></p>
+              <h1 id="Leetcode-Notes-238"><a href="#Leetcode-Notes-238" class="headerlink" title="Leetcode Notes -238"></a>Leetcode Notes -238</h1><p>题目：<strong>238. 除自身以外数组的乘积</strong></p>
 <p>难度：<strong>中等</strong></p>
 <p>遇见次数：<strong>第二次</strong></p>
 <p>涉及知识点：</p>
 <ul>
-<li>二分查找</li>
-<li>搜索二维矩阵</li>
-<li>搜索二叉树</li>
+<li>数组</li>
 </ul>
-<h2 id="提交"><a href="#提交" class="headerlink" title="提交"></a>提交</h2><h3 id="1-错就对了！"><a href="#1-错就对了！" class="headerlink" title="1. 错就对了！"></a>1. 错就对了！</h3><p>暴力法的废物…二分写不出来，麻了😭</p>
-<p><img src="https://alipicbed.oss-cn-beijing.aliyuncs.com/img/image-20210901230057218.png" srcset="/img/loading.gif" lazyload alt="暴力遍历"></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>&#123;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">searchMatrix</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[][] matrix, <span class="hljs-keyword">int</span> target)</span> </span>&#123;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> c = <span class="hljs-number">0</span>; c &lt; matrix[<span class="hljs-number">0</span>].length; c++)&#123;<br>            <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> r = <span class="hljs-number">0</span>; r &lt; matrix.length; r++)&#123;<br>                <span class="hljs-keyword">if</span>(matrix[r][c] == target) <span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>;<br>            &#125;<br>        &#125;<br><br>        <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<h2 id="提交"><a href="#提交" class="headerlink" title="提交"></a>提交</h2><h3 id="1-双向乘法"><a href="#1-双向乘法" class="headerlink" title="1. 双向乘法"></a>1. 双向乘法</h3><p>不擦😊</p>
+<p><img src="https://alipicbed.oss-cn-beijing.aliyuncs.com/img/image-20210902113553113.png" srcset="/img/loading.gif" lazyload alt="双向乘法"></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>&#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span>[] productExceptSelf(<span class="hljs-keyword">int</span>[] nums) &#123;<br>        <span class="hljs-keyword">int</span> n = nums.length;<br>        <span class="hljs-keyword">int</span>[] res = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[n];<br><br>        <span class="hljs-comment">// Left Multiplication</span><br>        <span class="hljs-keyword">int</span> cur = <span class="hljs-number">0</span>;<br>        <span class="hljs-keyword">int</span> val = <span class="hljs-number">1</span>;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> l = <span class="hljs-number">0</span>; l &lt; n; l++)&#123;<br>            <span class="hljs-keyword">while</span>(cur &lt; l)&#123;<br>                val *= nums[cur];<br>                cur++;<br>            &#125;<br>            res[l] = val;<br>        &#125;<br><br>        <span class="hljs-comment">// Right Multiplication</span><br>        cur = n - <span class="hljs-number">1</span>;<br>        val = <span class="hljs-number">1</span>;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> r = n - <span class="hljs-number">1</span>; r &gt;= <span class="hljs-number">0</span>; r--)&#123;<br>            <span class="hljs-keyword">while</span>(cur &gt; r)&#123;<br>                val *= nums[cur];<br>                cur--;<br>            &#125;<br><br>            res[r] = res[r] * val;<br>        &#125;<br><br>        <span class="hljs-keyword">return</span> res;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
 
-<h2 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h2><h3 id="剪枝"><a href="#剪枝" class="headerlink" title="剪枝"></a>剪枝</h3><h4 id="思路及算法"><a href="#思路及算法" class="headerlink" title="思路及算法"></a>思路及算法</h4><p>并不是想不到这个方法，很重要一个弯没有转过来。</p>
-<p>就是向左向右不能是同一个单调性，于是我们有——</p>
-<ul>
-<li>选左上角，往右走和往下走都增大，不能选</li>
-<li>选右下角，往上走和往左走都减小，不能选</li>
-<li>选左下角，往右走增大，往上走减小，可选</li>
-<li>选右上角，往下走增大，往左走减小，可选</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>&#123;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">searchMatrix</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[][] matrix, <span class="hljs-keyword">int</span> target)</span> </span>&#123;<br>        <span class="hljs-comment">// start our &quot;pointer&quot; in the bottom-left</span><br>        <span class="hljs-keyword">int</span> row = matrix.length-<span class="hljs-number">1</span>;<br>        <span class="hljs-keyword">int</span> col = <span class="hljs-number">0</span>;<br><br>        <span class="hljs-keyword">while</span> (row &gt;= <span class="hljs-number">0</span> &amp;&amp; col &lt; matrix[<span class="hljs-number">0</span>].length) &#123;<br>            <span class="hljs-keyword">if</span> (matrix[row][col] &gt; target) &#123;<br>                row--;<br>            &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (matrix[row][col] &lt; target) &#123;<br>                col++;<br>            &#125; <span class="hljs-keyword">else</span> &#123; <span class="hljs-comment">// found it</span><br>                <span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>;<br>            &#125;<br>        &#125;<br><br>        <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<h2 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h2><h3 id="空间复杂度为O-1-的方法"><a href="#空间复杂度为O-1-的方法" class="headerlink" title="空间复杂度为O(1)的方法"></a>空间复杂度为O(1)的方法</h3><h4 id="思路及算法"><a href="#思路及算法" class="headerlink" title="思路及算法"></a>思路及算法</h4><p>由于输出数组不算在空间复杂度内，那么我们可以将 L 或 R 数组用输出数组来计算。先把输出数组当作 L 数组来计算，然后再动态构造 R 数组得到结果。让我们来看看基于这个思想的算法。</p>
+<p>初始化 answer 数组，对于给定索引 i，answer[i] 代表的是 i 左侧所有数字的乘积。</p>
+<p>构造方式与之前相同，只是我们试图节省空间，先把 answer 作为方法一的 L 数组。这种方法的唯一变化就是我们没有构造 R 数组。而是用一个遍历来跟踪右边元素的乘积。并更新数组 answer[i] = answer[i] ∗ R。然后 RR 更新为R = R ∗ nums[i]，其中变量 R 表示的就是索引右侧数字的乘积。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>&#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span>[] productExceptSelf(<span class="hljs-keyword">int</span>[] nums) &#123;<br>        <span class="hljs-keyword">int</span> length = nums.length;<br>        <span class="hljs-keyword">int</span>[] answer = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[length];<br><br>        <span class="hljs-comment">// answer[i] 表示索引 i 左侧所有元素的乘积</span><br>        <span class="hljs-comment">// 因为索引为 &#x27;0&#x27; 的元素左侧没有元素， 所以 answer[0] = 1</span><br>        answer[<span class="hljs-number">0</span>] = <span class="hljs-number">1</span>;<br>        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt; length; i++) &#123;<br>            answer[i] = nums[i - <span class="hljs-number">1</span>] * answer[i - <span class="hljs-number">1</span>];<br>        &#125;<br><br>        <span class="hljs-comment">// R 为右侧所有元素的乘积</span><br>        <span class="hljs-comment">// 刚开始右边没有元素，所以 R = 1</span><br>        <span class="hljs-keyword">int</span> R = <span class="hljs-number">1</span>;<br>        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = length - <span class="hljs-number">1</span>; i &gt;= <span class="hljs-number">0</span>; i--) &#123;<br>            <span class="hljs-comment">// 对于索引 i，左边的乘积为 answer[i]，右边的乘积为 R</span><br>            answer[i] = answer[i] * R;<br>            <span class="hljs-comment">// R 需要包含右边所有的乘积，所以计算下一个结果时需要将当前值乘到 R 上</span><br>            R *= nums[i];<br>        &#125;<br>        <span class="hljs-keyword">return</span> answer;<br>    &#125;<br>&#125;<br><br>作者：LeetCode-Solution<br>链接：https:<span class="hljs-comment">//leetcode-cn.com/problems/product-of-array-except-self/solution/chu-zi-shen-yi-wai-shu-zu-de-cheng-ji-by-leetcode-/</span><br>来源：力扣（LeetCode）<br>著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。<br></code></pre></td></tr></table></figure>
 
+<blockquote>
+<p>这个算是做过一次就学会了，输出数组不算入空间复杂度</p>
+</blockquote>
 
             </div>
             <hr>
@@ -285,9 +281,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2021/09/02/Big-Data-Intro-Chapter-4/">
+                      <a href="/2021/09/02/LeetCode-Notes-560/">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Big Data Intro - Chapter 4</span>
+                        <span class="hidden-mobile">LeetCode Notes - 560</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -295,8 +291,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2021/09/01/LeetCode-Notes-435/">
-                        <span class="hidden-mobile">LeetCode Notes - 435</span>
+                      <a href="/2021/09/02/LeetCode-Notes-334/">
+                        <span class="hidden-mobile">LeetCode Notes - 334</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
