@@ -18,7 +18,7 @@
   <meta name="author" content="Jiacheng Li">
   <meta name="keywords" content="">
   
-  <title>LeetCode Notes - 560 - Elapsed</title>
+  <title>LeetCode Notes - 409 - Elapsed</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
 
@@ -163,7 +163,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="LeetCode Notes - 560">
+            <span class="h2" id="subtitle" title="LeetCode Notes - 409">
               
             </span>
 
@@ -173,8 +173,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2021-09-02 22:59" pubdate>
-        2021年9月2日 晚上
+      <time datetime="2021-09-03 16:48" pubdate>
+        2021年9月3日 下午
       </time>
     </span>
   
@@ -185,7 +185,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      389 字
+      539 字
     </span>
   
 
@@ -195,7 +195,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      5
+      7
        分钟
     </span>
   
@@ -225,32 +225,28 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">LeetCode Notes - 560</h1>
+            <h1 style="display: none">LeetCode Notes - 409</h1>
             
             <div class="markdown-body">
-              <h1 id="Leetcode-Notes-560"><a href="#Leetcode-Notes-560" class="headerlink" title="Leetcode Notes - 560"></a>Leetcode Notes - 560</h1><p>题目：<strong>560. 和为K的子数组</strong></p>
-<p>难度：<strong>中等</strong></p>
+              <h1 id="Leetcode-Notes-409"><a href="#Leetcode-Notes-409" class="headerlink" title="Leetcode Notes - 409"></a>Leetcode Notes - 409</h1><p>题目：<strong>409. 最长回文串</strong></p>
+<p>难度：<strong>简单</strong></p>
 <p>遇见次数：<strong>第二次</strong></p>
 <p>涉及知识点：</p>
 <ul>
-<li>前缀和</li>
-<li>哈希表</li>
+<li>贪心</li>
+<li>字符串</li>
 </ul>
-<h2 id="提交"><a href="#提交" class="headerlink" title="提交"></a>提交</h2><h3 id="前缀和-哈希表优化"><a href="#前缀和-哈希表优化" class="headerlink" title="前缀和+哈希表优化"></a>前缀和+哈希表优化</h3><p>理解题解后自己写的版本👇</p>
-<p><img src="https://alipicbed.oss-cn-beijing.aliyuncs.com/img/image-20210902122836379.png" srcset="/img/loading.gif" lazyload alt="前缀和+哈希表优化"></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>&#123;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">subarraySum</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] nums, <span class="hljs-keyword">int</span> k)</span> </span>&#123;<br>        <span class="hljs-keyword">int</span> pre = <span class="hljs-number">0</span>;<br>        <span class="hljs-keyword">int</span> count = <span class="hljs-number">0</span>;<br>        Map&lt;Integer, Integer&gt; map = <span class="hljs-keyword">new</span> HashMap&lt;&gt;();<br><br>        map.put(<span class="hljs-number">0</span>,<span class="hljs-number">1</span>);<br>        <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i : nums)&#123;<br>            pre = pre + i;<br>            <span class="hljs-keyword">int</span> cur = map.getOrDefault(pre, <span class="hljs-number">0</span>);<br><br>            <span class="hljs-keyword">if</span>(map.containsKey(pre - k))&#123;<br>                count = count + map.get(pre - k);<br>            &#125;<br><br>            map.put(pre, cur + <span class="hljs-number">1</span>);<br>        &#125;<br><br>        <span class="hljs-keyword">return</span> count;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<h2 id="提交"><a href="#提交" class="headerlink" title="提交"></a>提交</h2><h3 id="1-哈希表"><a href="#1-哈希表" class="headerlink" title="1. 哈希表"></a>1. 哈希表</h3><p>效率不咋地的哈希🛬</p>
+<p><img src="https://alipicbed.oss-cn-beijing.aliyuncs.com/img/image-20210903164227533.png" srcset="/img/loading.gif" lazyload alt="哈希表"></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>&#123;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">longestPalindrome</span><span class="hljs-params">(String s)</span> </span>&#123;<br>        Map&lt;Character, Integer&gt; mp = <span class="hljs-keyword">new</span> HashMap&lt;&gt;();<br><br>        <span class="hljs-keyword">for</span>(<span class="hljs-keyword">char</span> ch : s.toCharArray())&#123;<br>            <span class="hljs-keyword">int</span> cur = mp.getOrDefault(ch, <span class="hljs-number">0</span>);<br><br>            mp.put(ch, cur + <span class="hljs-number">1</span>);<br>        &#125;<br><br>        <span class="hljs-keyword">int</span> count = <span class="hljs-number">0</span>;<br>        <span class="hljs-keyword">boolean</span> center = <span class="hljs-keyword">false</span>;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-keyword">char</span> ele : mp.keySet())&#123;<br>            <span class="hljs-keyword">int</span> cur = mp.get(ele);<br><br>            <span class="hljs-keyword">if</span>(cur % <span class="hljs-number">2</span> == <span class="hljs-number">0</span>)&#123;<br>                count += cur;<br>                <span class="hljs-keyword">continue</span>;<br>            &#125;<br>            <span class="hljs-keyword">else</span>&#123;<br>                <span class="hljs-keyword">if</span>(center)&#123;<br>                    count = count + cur - <span class="hljs-number">1</span>;<br>                &#125;<br>                <span class="hljs-keyword">else</span>&#123;<br>                    count += cur;<br>                    center = <span class="hljs-keyword">true</span>;<br>                &#125;<br>            &#125;<br>        &#125;<br><br>        <span class="hljs-keyword">return</span> count;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
 
-<h2 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h2><h3 id="前缀和-哈希表优化-1"><a href="#前缀和-哈希表优化-1" class="headerlink" title="前缀和+哈希表优化"></a>前缀和+哈希表优化</h3><h4 id="思路及算法"><a href="#思路及算法" class="headerlink" title="思路及算法"></a>思路及算法</h4><ol>
-<li>每个元素对应一个 “前缀和”</li>
-<li>遍历数组，根据当前 “前缀和”，在 map 中寻找「与之相减 == k」的历史前缀和</li>
-<li>当前 “前缀和” 与历史前缀和，差分出一个子数组，该历史前缀和出现过 c 次，等价于当前项找到 c 个子数组求和等于 k</li>
-<li>遍历过程中，c 不断加给 count，最后返回 count</li>
-</ol>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>&#123;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">subarraySum</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] nums, <span class="hljs-keyword">int</span> k)</span> </span>&#123;<br>        <span class="hljs-keyword">int</span> count = <span class="hljs-number">0</span>, pre = <span class="hljs-number">0</span>;<br>        HashMap &lt; Integer, Integer &gt; mp = <span class="hljs-keyword">new</span> HashMap &lt; &gt; ();<br>        mp.put(<span class="hljs-number">0</span>, <span class="hljs-number">1</span>);<br>        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; nums.length; i++) &#123;<br>            pre += nums[i];<br>            <span class="hljs-keyword">if</span> (mp.containsKey(pre - k)) &#123;<br>                count += mp.get(pre - k);<br>            &#125;<br>            mp.put(pre, mp.getOrDefault(pre, <span class="hljs-number">0</span>) + <span class="hljs-number">1</span>);<br>        &#125;<br>        <span class="hljs-keyword">return</span> count;<br>    &#125;<br>&#125;<br><br>作者：LeetCode-Solution<br>链接：https:<span class="hljs-comment">//leetcode-cn.com/problems/subarray-sum-equals-k/solution/he-wei-kde-zi-shu-zu-by-leetcode-solution/</span><br>来源：力扣（LeetCode）<br>著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。<br></code></pre></td></tr></table></figure>
-
+<h2 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h2><h3 id="贪心"><a href="#贪心" class="headerlink" title="贪心"></a>贪心</h3><h4 id="思路及算法"><a href="#思路及算法" class="headerlink" title="思路及算法"></a>思路及算法</h4><p>对于每个字符 ch，假设它出现了 v 次，我们可以使用该字符 v / 2 * 2 次，在回文串的左侧和右侧分别放置 v / 2 个字符 ch，其中 / 为整数除法。例如若 “a” 出现了 5 次，那么我们可以使用 “a” 的次数为 4，回文串的左右两侧分别放置 2 个 “a”。</p>
+<p>如果有任何一个字符 ch 的出现次数 v 为奇数（即 v % 2 == 1），那么可以将这个字符作为回文中心，注意只能最多有一个字符作为回文中心。在代码中，我们用 ans 存储回文串的长度，由于在遍历字符时，ans 每次会增加 v / 2 * 2，因此 ans 一直为偶数。但在发现了第一个出现次数为奇数的字符后，我们将 ans 增加 1，这样 ans 变为奇数，在后面发现其它出现奇数次的字符时，我们就不改变 ans 的值了。</p>
 <blockquote>
-<p>气死了！为了写这个题解我健美选修没了，淦！</p>
+<p>很巧妙的利用了语言整除中 round 的特性，就不用再像我那样做判断了</p>
 </blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>&#123;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">longestPalindrome</span><span class="hljs-params">(String s)</span> </span>&#123;<br>        <span class="hljs-keyword">int</span>[] count = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[<span class="hljs-number">128</span>];<br>        <span class="hljs-keyword">int</span> length = s.length();<br>        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; length; ++i) &#123;<br>            <span class="hljs-keyword">char</span> c = s.charAt(i);<br>            count[c]++;<br>        &#125;<br><br>        <span class="hljs-keyword">int</span> ans = <span class="hljs-number">0</span>;<br>        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> v: count) &#123;<br>            ans += v / <span class="hljs-number">2</span> * <span class="hljs-number">2</span>;<br>            <span class="hljs-keyword">if</span> (v % <span class="hljs-number">2</span> == <span class="hljs-number">1</span> &amp;&amp; ans % <span class="hljs-number">2</span> == <span class="hljs-number">0</span>) &#123;<br>                ans++;<br>            &#125;<br>        &#125;<br>        <span class="hljs-keyword">return</span> ans;<br>    &#125;<br>&#125;<br><br>作者：LeetCode-Solution<br>链接：https:<span class="hljs-comment">//leetcode-cn.com/problems/longest-palindrome/solution/zui-chang-hui-wen-chuan-by-leetcode-solution/</span><br>来源：力扣（LeetCode）<br>著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。<br></code></pre></td></tr></table></figure>
+
 
             </div>
             <hr>
@@ -285,9 +281,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2021/09/03/LeetCode-Notes-409/">
+                      <a href="/2021/09/03/LeetCode-Notes-415/">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">LeetCode Notes - 409</span>
+                        <span class="hidden-mobile">LeetCode Notes - 415</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -295,8 +291,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2021/09/02/LeetCode-Notes-238/">
-                        <span class="hidden-mobile">LeetCode Notes - 238</span>
+                      <a href="/2021/09/02/LeetCode-Notes-560/">
+                        <span class="hidden-mobile">LeetCode Notes - 560</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
