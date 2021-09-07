@@ -18,7 +18,7 @@
   <meta name="author" content="Jiacheng Li">
   <meta name="keywords" content="">
   
-  <title>LeetCode Notes - 83 - Elapsed</title>
+  <title>LeetCode Notes - 1221 - Elapsed</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
 
@@ -163,7 +163,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="LeetCode Notes - 83">
+            <span class="h2" id="subtitle" title="LeetCode Notes - 1221">
               
             </span>
 
@@ -173,8 +173,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2021-07-30 18:16" pubdate>
-        2021年7月30日 晚上
+      <time datetime="2021-09-07 13:26" pubdate>
+        2021年9月7日 下午
       </time>
     </span>
   
@@ -185,7 +185,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      553 字
+      346 字
     </span>
   
 
@@ -195,7 +195,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      7
+      4
        分钟
     </span>
   
@@ -225,24 +225,25 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">LeetCode Notes - 83</h1>
+            <h1 style="display: none">LeetCode Notes - 1221</h1>
             
             <div class="markdown-body">
-              <h1 id="Leetcode-Notes-83"><a href="#Leetcode-Notes-83" class="headerlink" title="Leetcode Notes - 83"></a>Leetcode Notes - 83</h1><p>题目：<strong>83. 删除排序链表中的重复元素</strong></p>
+              <h1 id="Leetcode-Notes-1221"><a href="#Leetcode-Notes-1221" class="headerlink" title="Leetcode Notes - 1221"></a>Leetcode Notes - 1221</h1><p>题目：<strong>1221. 分割平衡字符串</strong></p>
 <p>难度：<strong>简单</strong></p>
 <p>遇见次数：<strong>第一次</strong></p>
 <p>涉及知识点：</p>
 <ul>
-<li>链表</li>
+<li>字符串</li>
 </ul>
-<h2 id="提交"><a href="#提交" class="headerlink" title="提交"></a>提交</h2><h3 id="1-快慢指针-哈希表"><a href="#1-快慢指针-哈希表" class="headerlink" title="1. 快慢指针+哈希表"></a>1. 快慢指针+哈希表</h3><p><img src="https://alipicbed.oss-cn-beijing.aliyuncs.com/img/image-20210730180813688.png" srcset="/img/loading.gif" lazyload alt="提交情况"></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * Definition for singly-linked list.</span><br><span class="hljs-comment"> * public class ListNode &#123;</span><br><span class="hljs-comment"> *     int val;</span><br><span class="hljs-comment"> *     ListNode next;</span><br><span class="hljs-comment"> *     ListNode() &#123;&#125;</span><br><span class="hljs-comment"> *     ListNode(int val) &#123; this.val = val; &#125;</span><br><span class="hljs-comment"> *     ListNode(int val, ListNode next) &#123; this.val = val; this.next = next; &#125;</span><br><span class="hljs-comment"> * &#125;</span><br><span class="hljs-comment"> */</span><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>&#123;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> ListNode <span class="hljs-title">deleteDuplicates</span><span class="hljs-params">(ListNode head)</span> </span>&#123;<br>        <span class="hljs-keyword">if</span>(head == <span class="hljs-keyword">null</span>)&#123;<br>            <span class="hljs-keyword">return</span> head;<br>        &#125;<br><br>        <span class="hljs-keyword">if</span>(head.next == <span class="hljs-keyword">null</span>)&#123;<br>            <span class="hljs-keyword">return</span> head;<br>        &#125;<br><br>        Set&lt;Integer&gt; myHashset = <span class="hljs-keyword">new</span> HashSet&lt;Integer&gt;();<br>        ListNode fast = <span class="hljs-keyword">new</span> ListNode(<span class="hljs-number">0</span>, head.next);<br>        ListNode ans = head;<br><br>        myHashset.add(head.val);<br>        <span class="hljs-keyword">while</span>(fast.next != <span class="hljs-keyword">null</span>)&#123;<br>            <span class="hljs-keyword">if</span>(myHashset.contains(fast.next.val))&#123;<br>                head.next = <span class="hljs-keyword">null</span>;<br>                fast.next = fast.next.next;<br>            &#125;<br>            <span class="hljs-keyword">else</span>&#123;<br>                myHashset.add(fast.next.val);<br>                head.next = fast.next;<br>                head = head.next;<br>                fast.next = fast.next.next;<br>            &#125;<br>        &#125;<br><br>        <span class="hljs-keyword">return</span> ans;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<h2 id="提交"><a href="#提交" class="headerlink" title="提交"></a>提交</h2><h3 id="哈希表-贪心"><a href="#哈希表-贪心" class="headerlink" title="哈希表 + 贪心"></a>哈希表 + 贪心</h3><p>简单题乱杀🗡</p>
+<p><img src="https://alipicbed.oss-cn-beijing.aliyuncs.com/img/image-20210907132456213.png" srcset="/img/loading.gif" lazyload alt="哈希表"></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>&#123;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">balancedStringSplit</span><span class="hljs-params">(String s)</span> </span>&#123;<br>        <span class="hljs-keyword">int</span>[] mp = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[<span class="hljs-number">2</span>];<br>        <br>        <span class="hljs-keyword">int</span> count = <span class="hljs-number">0</span>;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-keyword">char</span> ch : s.toCharArray())&#123;<br>            <span class="hljs-keyword">int</span> cur = ch == <span class="hljs-string">&#x27;L&#x27;</span> ? <span class="hljs-number">0</span> : <span class="hljs-number">1</span>;<br>            mp[cur]++;<br>            <br>            <span class="hljs-keyword">if</span>(mp[cur] == mp[<span class="hljs-number">1</span> - cur])&#123;<br>                count++;<br>            &#125;<br>            <br>        &#125;<br>        <br>        <span class="hljs-keyword">return</span> count;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
 
-<h2 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h2><h3 id="迭代一次遍历"><a href="#迭代一次遍历" class="headerlink" title="迭代一次遍历"></a>迭代一次遍历</h3><h4 id="思路与算法"><a href="#思路与算法" class="headerlink" title="思路与算法"></a>思路与算法</h4><p>由于给定的链表是排好序的，因此重复的元素在链表中出现的位置是连续的，因此我们只需要对链表进行一次遍历，就可以删除重复的元素。</p>
-<p>具体地，我们从指针 cur 指向链表的头节点，随后开始对链表进行遍历。如果当前 cur 与 cur.next 对应的元素相同，那么我们就将 cur.next 从链表中移除；否则说明链表中已经不存在其它与 cur 对应的元素相同的节点，因此可以将 cur 指向 cur.next。</p>
-<p>当遍历完整个链表之后，我们返回链表的头节点即可。</p>
-<h4 id="细节"><a href="#细节" class="headerlink" title="细节"></a>细节</h4><p>当我们遍历到链表的最后一个节点时，cur.next 为空节点，如果不加以判断，访问 cur.next 对应的元素会产生运行错误。因此我们只需要遍历到链表的最后一个节点，而不需要遍历完整个链表。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>&#123;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> ListNode <span class="hljs-title">deleteDuplicates</span><span class="hljs-params">(ListNode head)</span> </span>&#123;<br>        <span class="hljs-keyword">if</span> (head == <span class="hljs-keyword">null</span>) &#123;<br>            <span class="hljs-keyword">return</span> head;<br>        &#125;<br><br>        ListNode cur = head;<br>        <span class="hljs-keyword">while</span> (cur.next != <span class="hljs-keyword">null</span>) &#123;<br>            <span class="hljs-keyword">if</span> (cur.val == cur.next.val) &#123;<br>                cur.next = cur.next.next;<br>            &#125; <span class="hljs-keyword">else</span> &#123;<br>                cur = cur.next;<br>            &#125;<br>        &#125;<br><br>        <span class="hljs-keyword">return</span> head;<br>    &#125;<br>&#125;<br><br>作者：LeetCode-Solution<br>链接：https:<span class="hljs-comment">//leetcode-cn.com/problems/remove-duplicates-from-sorted-list/solution/shan-chu-pai-xu-lian-biao-zhong-de-zhong-49v5/</span><br>来源：力扣（LeetCode）<br>著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。<br></code></pre></td></tr></table></figure>
+<h2 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h2><h3 id="贪心"><a href="#贪心" class="headerlink" title="贪心"></a>贪心</h3><h4 id="思路及算法"><a href="#思路及算法" class="headerlink" title="思路及算法"></a>思路及算法</h4><p>根据题意，对于一个平衡字符串 s，若 s 能从中间某处分割成左右两个子串，若其中一个是平衡字符串，则另一个的 L 和 R 字符的数量必然是相同的，所以也一定是平衡字符串。</p>
+<p>为了最大化分割数量，我们可以不断循环，每次从 s 中分割出一个最短的平衡前缀，由于剩余部分也是平衡字符串，我们可以将其当作 s 继续分割，直至 s 为空时，结束循环。</p>
+<p>代码实现中，可以在遍历 s 时用一个变量 dd 维护 L 和 R 字符的数量之差，当 d = 0 时就说明找到了一个平衡字符串，将答案加一。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>&#123;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">balancedStringSplit</span><span class="hljs-params">(String s)</span> </span>&#123;<br>        <span class="hljs-keyword">int</span> ans = <span class="hljs-number">0</span>, d = <span class="hljs-number">0</span>;<br>        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; s.length(); ++i) &#123;<br>            <span class="hljs-keyword">char</span> ch = s.charAt(i);<br>            <span class="hljs-keyword">if</span> (ch == <span class="hljs-string">&#x27;L&#x27;</span>) &#123;<br>                ++d;<br>            &#125; <span class="hljs-keyword">else</span> &#123;<br>                --d;<br>            &#125;<br>            <span class="hljs-keyword">if</span> (d == <span class="hljs-number">0</span>) &#123;<br>                ++ans;<br>            &#125;<br>        &#125;<br>        <span class="hljs-keyword">return</span> ans;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
 
             </div>
             <hr>
@@ -277,9 +278,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2021/07/30/LeetCode-Notes-206/">
+                      <a href="/2021/09/07/LeetCode-Notes-142/">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">LeetCode Notes - 206</span>
+                        <span class="hidden-mobile">LeetCode Notes - 142</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -287,8 +288,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2021/07/30/LeetCode-Notes-3/">
-                        <span class="hidden-mobile">LeetCode Notes - 3</span>
+                      <a href="/2021/09/06/LeetCode-Notes-187/">
+                        <span class="hidden-mobile">LeetCode Notes - 187</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
