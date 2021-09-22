@@ -1,0 +1,841 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="Ken hexo blog">
+  <meta name="author" content="Jiacheng Li">
+  <meta name="keywords" content="">
+  
+  <title>Big Data Intro - Chapter 7 - Elapsed</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.7.2/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.11","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Elapsed</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/bg.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="Big Data Intro - Chapter 7">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-09-22 14:40" pubdate>
+        2021年9月22日 下午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      5.4k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      59
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Big Data Intro - Chapter 7</h1>
+            
+            <div class="markdown-body">
+              <h1 id="第07章-Flink流批一体分布式实时处理引擎"><a href="#第07章-Flink流批一体分布式实时处理引擎" class="headerlink" title="第07章 Flink流批一体分布式实时处理引擎"></a>第07章 Flink流批一体分布式实时处理引擎</h1><h2 id="Part-1-Flink-远离及架构"><a href="#Part-1-Flink-远离及架构" class="headerlink" title="Part 1 Flink 远离及架构"></a>Part 1 Flink 远离及架构</h2><h3 id="Flink-概述"><a href="#Flink-概述" class="headerlink" title="Flink 概述"></a>Flink 概述</h3><p>Apache Flink 是为<strong>分布式、高性能</strong>的流处理应用打造的开源处理框架</p>
+<ul>
+<li>Flink 可以提供支持<strong>高吞吐盒 Exactly-once</strong> 语义的实时计算</li>
+<li>可以提供<strong>批量数据处理</strong></li>
+</ul>
+<h3 id="Flink-关键机制"><a href="#Flink-关键机制" class="headerlink" title="Flink 关键机制"></a>Flink 关键机制</h3><p>四个机制</p>
+<ul>
+<li>状态 - State</li>
+<li>时间 - Time</li>
+<li>检查点 -Checkpoint</li>
+<li>窗口 - Window</li>
+</ul>
+<h3 id="Flink-核心理念"><a href="#Flink-核心理念" class="headerlink" title="Flink 核心理念"></a>Flink 核心理念</h3><p>Flink 与 其他流计算引擎的最大区别——<strong>状态管理</strong>，可以把工作状态存储在 Flink 内部，而不需要把它存储在外部系统</p>
+<ul>
+<li>降低了计算引擎对外部系统的<strong>依赖</strong>，使得部署、运维更加简单</li>
+<li>对性能带来了极大的提升</li>
+</ul>
+<h3 id="Flink-Runtime-整体架构"><a href="#Flink-Runtime-整体架构" class="headerlink" title="Flink Runtime 整体架构"></a>Flink Runtime 整体架构</h3><p><img src="https://alipicbed.oss-cn-beijing.aliyuncs.com/img/image-20210919130134564.png" srcset="/img/loading.gif" lazyload alt="Flink Runtime 整体架构"></p>
+<p><strong>Flink</strong> 是一个分层架构的系统，主要分为三层，每一层所包含的组件都提供了特定的抽象，用来服务上层组件。</p>
+<ul>
+<li><strong>部署层面上：</strong>可以单机，集群，云上部署，一般 YARN 集群部署比较多</li>
+<li><strong>核心层面上：</strong>有一个分布式的流式数据处理引擎</li>
+<li><strong>API 层面上：</strong>有流式处理API，批处理API</li>
+</ul>
+<p><strong>流式处理</strong>支持事件处理，表操作；批处理支持机器学 习，图计算，也支持表操作。</p>
+<h3 id="Flink-核心概念-DataStream"><a href="#Flink-核心概念-DataStream" class="headerlink" title="Flink 核心概念 - DataStream"></a>Flink 核心概念 - DataStream</h3><p><img src="https://alipicbed.oss-cn-beijing.aliyuncs.com/img/image-20210919130527436.png" srcset="/img/loading.gif" lazyload alt="DataStream"></p>
+<p>Flink 用类 DataStream 来表示程序中的流式数据</p>
+<ul>
+<li>用户可以认为他们是含有重复数据的不可修改集合（Collection）</li>
+<li>DataStream 中元素的数量是<strong>无限的</strong></li>
+</ul>
+<p>DataStream 之间常用的算子操作</p>
+<ul>
+<li>含有 <strong>Window</strong> 的是窗口操作，与后面的窗口操作相关连，之间的关系可以通过 reduce，fold，sum，max函数进行管关联</li>
+<li><strong>connect：</strong>进行 Stream 之间的连接，可以通过 flatmap，map 函数进行操作</li>
+<li><strong>JoinedStream：</strong>进行 Stream 之间的 join 操作，类似于数据库中的 join，可以通过 join 函数等进行关联</li>
+<li><strong>CoGroupedStream：</strong>Stream 之间的联合，类似于关系数据库中的 group 操作，可以通过 coGroup 函数进行关联</li>
+<li><strong>KeyedStream：</strong>主要是对数据流依据 key 进行处理，可以通过 keyBy 函数进 行处理</li>
+</ul>
+<h3 id="Flink-核心概念-DataSet"><a href="#Flink-核心概念-DataSet" class="headerlink" title="Flink 核心概念 - DataSet"></a>Flink 核心概念 - DataSet</h3><p>Flink 系统可对数据集进行转换操作（如过滤，映射，链接，分组），数据集可从读取文件或从本地集合创建</p>
+<ul>
+<li>结果通过接收器（Sink）返回，接收器可以将数据写入（分布式）文件或标准输出（例如命令行终端）</li>
+</ul>
+<h3 id="Flink-程序"><a href="#Flink-程序" class="headerlink" title="Flink 程序"></a>Flink 程序</h3><p><img src="https://alipicbed.oss-cn-beijing.aliyuncs.com/img/image-20210919130824813.png" srcset="/img/loading.gif" lazyload alt="Flink 程序"></p>
+<p>Flink 程序由 Source、Transformation 和 Sink 三部分组成，其中：</p>
+<ul>
+<li>Source 主要负责数据的读取，支持 Kafka，HDFS 和文本等</li>
+<li>Transformation 主要负责对数据的转换操作</li>
+<li>Sink 负责最终数据的输出，支持 HDFS，Kafka 和文本输出等<br>在各部分之间流转的数据成为流（stream）</li>
+</ul>
+<p>一个 Flink 程序的<strong>基本构成</strong>——</p>
+<ol>
+<li><p><strong>获取 execution environment</strong></p>
+<blockquote>
+<p>执行环境 <strong>StreamExecutionEnvironment</strong> 是所有 Flink 程序的基础创建执行环境有三种方式，分别为：</p>
+<ul>
+<li><strong>StreamExecutionEnvironment.getExecutionEnvironment</strong> </li>
+<li><strong>StreamExecutionEnvironment.createLocalEnvironment</strong></li>
+<li><strong>StreamExecutionEnvironment.createRemoteEnvironment</strong> </li>
+</ul>
+</blockquote>
+</li>
+<li><p><strong>加载/创建原始数据</strong></p>
+</li>
+<li><p><strong>指定这些数据的转化方法</strong></p>
+</li>
+<li><p><strong>指定计算结果的存放位置</strong></p>
+</li>
+<li><p><strong>触发程序执行</strong></p>
+</li>
+</ol>
+<h3 id="Flink-数据源"><a href="#Flink-数据源" class="headerlink" title="Flink 数据源"></a>Flink 数据源</h3><p><img src="https://alipicbed.oss-cn-beijing.aliyuncs.com/img/image-20210919131140312.png" srcset="/img/loading.gif" lazyload alt="Flink 数据源"></p>
+<h3 id="Flink-程序运行图"><a href="#Flink-程序运行图" class="headerlink" title="Flink 程序运行图"></a>Flink 程序运行图</h3><p><img src="https://alipicbed.oss-cn-beijing.aliyuncs.com/img/image-20210919131201694.png" srcset="/img/loading.gif" lazyload alt="Flink 程序运行图"></p>
+<p>Flink 是一个基于 <strong>Master-Slave</strong> 风格的架构</p>
+<ol>
+<li><p>Flink 集群启动时，会启动一个 JobManager 进程、至少一个 TaskManage r进程</p>
+<ul>
+<li>当 Flink 程序提交后，会创建 一个 Client 来进行预处理，将程序转换为一个表示完整 Job 的 DAG，并提交到  JobManager，最后 JobManager 将 Job 中的各个 Task 分配给 TaskManager</li>
+</ul>
+</li>
+<li><p>Flink 中的计算资源<strong>通过 Task Slot 来定义</strong></p>
+<ul>
+<li>每个 Task Slot 代表了 TaskManager 的一个固定大小的资源池</li>
+<li>例如，一个拥有 3 个 slot 的 TaskManager 会将其管理的内存平均分成三份分给各个slot</li>
+<li>将资源 slot 化意味着来自不同 job 的 task 不会出现内存竞争</li>
+<li>slot 目前仅支持内存的隔离，不支持 CPU 隔离</li>
+</ul>
+</li>
+<li><p>Flink 程序在执行的时候，会<strong>先被转化为一个 Streaming Dataflows</strong></p>
+<ul>
+<li>一个 Streaming Dataflow 是由一组 Stream 和 Transformation Operator 组成的 DAG</li>
+</ul>
+</li>
+</ol>
+<h3 id="Flink-作业运行流程"><a href="#Flink-作业运行流程" class="headerlink" title="Flink 作业运行流程"></a>Flink 作业运行流程</h3><p><img src="https://alipicbed.oss-cn-beijing.aliyuncs.com/img/image-20210919131609248.png" srcset="/img/loading.gif" lazyload alt="Flink 作业运行流程"></p>
+<p>其中角色主要有——</p>
+<ul>
+<li><strong>Client：</strong>Flink Client 主要给用户提供向 Flink 系统提交用户任务（流式作业）的能力</li>
+<li><strong>TaskManager：</strong>Flink 系统的业务执行节点，执行具体的用户任务。<ul>
+<li>TaskManager 可以有多个，各个 TaskManager 都平等</li>
+</ul>
+</li>
+<li><strong>JobManager：</strong>Flink系统的管理节点，管理所有的TaskManager，并决策用户任务在哪些 TaskManager 执行<ul>
+<li>JobManager 在 HA 模式下可以有多个，但只有一个主 JobManager</li>
+</ul>
+</li>
+<li><strong>TaskSlot（任务槽）：</strong>类似 yarn 中的 container 用于资源隔离，但是该组件只包含内存资源，不包含 cpu 资源。<ul>
+<li>每一个 TaskManager 当中包含 3 个 Task Slot，TaskManager 最多能同时并发执行的任务是可以控制的，那就是 3 个,因为不能超过 slot 的数量</li>
+<li>slot 有独占的内存空间，这样在一个 TaskManager 中可以运行多个不同的作业，作业之间不受影响</li>
+<li>slot 之间可以共享 JVM 资源, 可以共享 Dataset 和数据结构，也可以通过<strong>多路复用（Multiplexing） 共享TCP连接和心跳消息（Heatbeat Message）</strong></li>
+</ul>
+</li>
+<li><strong>Task：</strong>任务执行的单元</li>
+</ul>
+<p>整体运行流程为——</p>
+<ol>
+<li>用户首先提交 Flink 程序到 JobClient，经过其<strong>处理、解析、优化</strong>提交到 JobManager，最后再由 TaskManager 提交 Task</li>
+<li>JobClient 是 Flink 程序和  JobManager 交互的桥梁</li>
+</ol>
+<ul>
+<li>主要负责<strong>接收程序、解析程序的执行计划、优化程序的执行计划</strong></li>
+<li>然后提交执行计划到 JobManager</li>
+<li>主要有三类 Operator：Source，Transformation 和 Sink</li>
+</ul>
+<h3 id="Flink-的数据处理"><a href="#Flink-的数据处理" class="headerlink" title="Flink 的数据处理"></a>Flink 的数据处理</h3><p>Apache Flink 同时支持<strong>批处理和流处理</strong>，也能用来做一些基于事件的应用</p>
+<ul>
+<li>Flink 的基本数据模型是<strong>数据流</strong><ul>
+<li>无边界的无限流对应<strong>流计算</strong></li>
+<li>有边界的有限流对应<strong>批处理</strong></li>
+</ul>
+</li>
+<li>Flink 的另一个优势是<strong>支持有状态的计算</strong><ul>
+<li>有无状态，关键在于是否为 Causal（因果性）</li>
+</ul>
+</li>
+</ul>
+<p>对于<strong>无状态计算和有状态计算的区别</strong>来说——</p>
+<ul>
+<li><strong>无状态计算：</strong>无状态计算会观察每个独立的事件，并且会在最后一个时间出结果， <ul>
+<li>例如一些报警和监控，一直观察每个事件，当触发警报的事件来临就会触发警告</li>
+</ul>
+</li>
+<li><strong>有状态计算：</strong>有状态的计算就会基于多个事件来输出结果<ul>
+<li>例如说计算过去一个小时的平均温度等等</li>
+</ul>
+</li>
+</ul>
+<p>Apache Flink 同样擅长处理<strong>无界和有界数据集</strong>——</p>
+<ul>
+<li>精确的时间控制和状态化使得 Flink 的运行时 (runtime) 能够运行任何处理无界流的应用</li>
+<li>有界流则由一些专为固定大小数据集特殊设计的算法和数据结构进行内部处理，产生了出色的性能</li>
+</ul>
+<h3 id="有界流和无界流"><a href="#有界流和无界流" class="headerlink" title="有界流和无界流"></a>有界流和无界流</h3><p><img src="https://alipicbed.oss-cn-beijing.aliyuncs.com/img/image-20210919132524100.png" srcset="/img/loading.gif" lazyload alt="有界流和无界流"></p>
+<p>有限流处理是无限流处理的一种特殊情况，它只不过在某个时间点停止而已。</p>
+<p>此外，如果计算结果不在执行过程中连续生成，而仅在末尾处生成一次，那就是批处理（分批处理数据）。</p>
+<h4 id="无界流"><a href="#无界流" class="headerlink" title="无界流"></a>无界流</h4><p>有定义流的开始，但没有定义流的结束</p>
+<h4 id="有界流"><a href="#有界流" class="headerlink" title="有界流"></a>有界流</h4><p>有定义流的开始，也有定义流的结束</p>
+<h3 id="Flink-批处理模型"><a href="#Flink-批处理模型" class="headerlink" title="Flink 批处理模型"></a>Flink 批处理模型</h3><p><img src="https://alipicbed.oss-cn-beijing.aliyuncs.com/img/image-20210919132645901.png" srcset="/img/loading.gif" lazyload alt="Flink 批处理模型"></p>
+<p>Flink 的不寻常之处在于，它既可以<strong>将数据当作无限流</strong>来处理，也可以将它<strong>当作有限流</strong>来处理</p>
+<ul>
+<li>Flink 的 DataSet API 就是专为批处理而生的</li>
+</ul>
+<p>Flink 通过一个底层引擎同时支持<strong>流处理和批处理</strong></p>
+<ul>
+<li>在流处理引擎之上，Flink 有以下机制<ul>
+<li><strong>检查点机制和状态机制：</strong>用于实现容错、有状态的处理</li>
+<li><strong>水印机制：</strong>用于实现事件时钟</li>
+<li><strong>窗口和触发器：</strong>用于限制计算范围，并定义呈现结果的时间</li>
+</ul>
+</li>
+<li>在同一个流处理引擎之上，Flink 还存在另一套机制，用于实现高效的批处理<ul>
+<li><strong>用于调度和恢复的回溯法：</strong>由 Microsoft Dryad 引入，现在几乎用于所有批处理器</li>
+<li><strong>用于散列和排序的特殊内存数据结构：</strong>可以在需要时，将一部分数据从内存溢出到硬盘上</li>
+<li><strong>优化器：</strong>尽可能地缩短生成结果的时间</li>
+</ul>
+</li>
+</ul>
+<h2 id="Part2-Flink-的-Time-和-Window"><a href="#Part2-Flink-的-Time-和-Window" class="headerlink" title="Part2 Flink 的 Time 和 Window"></a>Part2 Flink 的 Time 和 Window</h2><h3 id="流处理中的-Time-分类"><a href="#流处理中的-Time-分类" class="headerlink" title="流处理中的 Time 分类"></a>流处理中的 Time 分类</h3><p><img src="https://alipicbed.oss-cn-beijing.aliyuncs.com/img/image-20210919154550377.png" srcset="/img/loading.gif" lazyload alt="流处理中的 Time 分类"></p>
+<p>在实际场景中，每个事件的时间可以分为三种：</p>
+<ul>
+<li><strong>Event time：</strong>即事件发生时的时间</li>
+<li><strong>Ingestion time：</strong>即事件到达流处理系统的时间</li>
+<li><strong>Processing time：</strong>即事件被系统处理的时间</li>
+</ul>
+<p>在 Flink 的流式处理中，绝大部分的业务都会使用 Event Time，一般只在 event  Time 无法使用时，才会被迫使用 Processing Time 或者 Ingestion Time</p>
+<p><img src="https://alipicbed.oss-cn-beijing.aliyuncs.com/img/image-20210919224202155.png" srcset="/img/loading.gif" lazyload alt="三种时间的区别"></p>
+<h3 id="Window-概述"><a href="#Window-概述" class="headerlink" title="Window 概述"></a>Window 概述</h3><p><strong>Window</strong> 是<strong>无限数据流处理的核心</strong>，它将一个无限的 Stream 拆分成有限大小的 “buckets” 桶，我们可以在这些桶上做计算操作</p>
+<h3 id="Window-类型"><a href="#Window-类型" class="headerlink" title="Window 类型"></a>Window 类型</h3><p>Window 根据应用类型可以分成两类：</p>
+<ul>
+<li>Count Window：数据驱动，按照指定的数据条数生成一个 Window，与时间无关</li>
+<li>Time Window：时间驱动，按照时间生成 Window</li>
+</ul>
+<p>Apache Flink 是一个<strong>天然支持无限流数据处理</strong>的分布式计算框架，Window 可以将无限流转变为有限流</p>
+<h3 id="TimeWindow-分类"><a href="#TimeWindow-分类" class="headerlink" title="TimeWindow 分类"></a>TimeWindow 分类</h3><h4 id="Tumbling-Window-滚动窗口"><a href="#Tumbling-Window-滚动窗口" class="headerlink" title="Tumbling Window 滚动窗口"></a>Tumbling Window 滚动窗口</h4><p>将数据依据固定的窗口长度对数据进行切片</p>
+<ul>
+<li>时间对齐，窗口长度固定，没有重叠</li>
+<li>适用于 BI 统计等（做每个时间段的聚合计算）</li>
+</ul>
+<p><img src="https://alipicbed.oss-cn-beijing.aliyuncs.com/img/image-20210919224332540.png" srcset="/img/loading.gif" lazyload alt="滚动窗口"></p>
+<h4 id="Sliding-滑动窗口"><a href="#Sliding-滑动窗口" class="headerlink" title="Sliding 滑动窗口"></a>Sliding 滑动窗口</h4><p>滑动窗口是固定窗口的更广义的一种形式，滑动窗口由固定的窗口长度和滑动间隔组成</p>
+<ul>
+<li>时间对齐，窗口长度固定，有重叠</li>
+<li>对最近一个时间段内的统计</li>
+</ul>
+<p><img src="https://alipicbed.oss-cn-beijing.aliyuncs.com/img/image-20210919224352430.png" srcset="/img/loading.gif" lazyload alt="滑动窗口"></p>
+<h4 id="Session-会话窗口"><a href="#Session-会话窗口" class="headerlink" title="Session 会话窗口"></a>Session 会话窗口</h4><p>会话窗口由一系列事件组合一个指定时间长度的 timeout 间隙组成，类似 web 应用的 session，也就是一段时间没有接收到新数据就会生成新的窗口</p>
+<ul>
+<li>时间无对齐</li>
+</ul>
+<p><img src="https://alipicbed.oss-cn-beijing.aliyuncs.com/img/image-20210919224453825.png" srcset="/img/loading.gif" lazyload alt="会话窗口"></p>
+<p>session 窗口分配器通过 session 活动来对元素进行分组，session 窗口跟滚动窗口和滑动窗口相比，不会有重叠和固定的开始时间和结束时间的情况</p>
+<ul>
+<li><strong>当它在一个固定的时间周期内不再收到元素，即非活动间隔产生，那么这个窗口就会关闭</strong></li>
+</ul>
+<p>一个 session 窗口通过一个 session 间隔来配置，这个 session 间隔定义了非活跃周期的长度</p>
+<ul>
+<li>当这个非活跃周期产生，那么当前的 session 将被关闭并且后续的元素将被分配到新的 session 窗口中去。</li>
+</ul>
+<h2 id="Part3-Flink-的-Watermark-机制"><a href="#Part3-Flink-的-Watermark-机制" class="headerlink" title="Part3 Flink 的 Watermark 机制"></a>Part3 Flink 的 Watermark 机制</h2><h3 id="乱序问题"><a href="#乱序问题" class="headerlink" title="乱序问题"></a>乱序问题</h3><p>所谓乱序，就是指 Flink 接收到的时间的先后顺序不是严格按照事件的 Event Time 顺序排列的</p>
+<p><img src="https://alipicbed.oss-cn-beijing.aliyuncs.com/img/image-20210919224717626.png" srcset="/img/loading.gif" lazyload alt="乱序问题"></p>
+<h3 id="为什么需要-Watermark"><a href="#为什么需要-Watermark" class="headerlink" title="为什么需要 Watermark"></a>为什么需要 Watermark</h3><p>一旦出现乱序，如果只根据 Event Time 决定 window 的运行，并不能明确数据是否全部到位，但又不能无限期的等下去，此时必须要有个机制来保证一个特定的时间后，触发 Window 去进行计算，这个机制就是 Watermark</p>
+<ul>
+<li>Watermark 告诉了<strong>算子延迟到达的信息不应该再被接收</strong></li>
+</ul>
+<p>Watermark 是一种衡量 Event Time 进展的机制，它是数据本身的一个隐藏属性， 数据本身携带着对应的 Watermark</p>
+<ul>
+<li>Watermark 是用于处理乱序事件的，通常结合 Window 来实现</li>
+</ul>
+<h3 id="Watermark-的原理"><a href="#Watermark-的原理" class="headerlink" title="Watermark 的原理"></a>Watermark 的原理</h3><p><img src="https://alipicbed.oss-cn-beijing.aliyuncs.com/img/image-20210919225014425.png" srcset="/img/loading.gif" lazyload alt="Watermark 的原理"></p>
+<ol>
+<li><p>Watermark 会携带一个单调递增的时间戳，Watermark(t) 表示所有时间戳不大于 t 的数据都已经到达，未来小于等于 t 的数据不会再来</p>
+<blockquote>
+<p>输入的数据中，根据自身的 Event Time，将数据划分到不同的 window 中，如果  window 中有数据，则当 watermark 时间 &gt;= window maxTimestamp 时，就符 合了 window 触发的条件了</p>
+<p>最终决定 window 触发，还是由数据本身的 Event  Time 所属的 window 中的 window maxTimestamp 决定。</p>
+</blockquote>
+</li>
+<li><p>有序流的 Watermark 如下图所示：（Watermark 设置为 0）</p>
+</li>
+</ol>
+<p><img src="https://alipicbed.oss-cn-beijing.aliyuncs.com/img/image-20210919225208593.png" srcset="/img/loading.gif" lazyload alt="有序流的 Watermark"></p>
+<ol start="3">
+<li>乱序流的 Watermark 如下图所示：（Watermark 设置为 2）</li>
+</ol>
+<p><img src="https://alipicbed.oss-cn-beijing.aliyuncs.com/img/image-20210919225241230.png" srcset="/img/loading.gif" lazyload alt="乱序流的 Watermark"></p>
+<blockquote>
+<p>上图中，我们设置的允许最大延迟到达时间为 2s，所以时间戳为 7s 的事件对应的  Watermark 是 5s，时间戳为 12s 的事件的 Watermark 是 10s，如果我们的窗口1是 1s - 5s，窗口2是 6s - 10s，那么时间戳为 7s 的事件到达时的 Watermarker 恰好触发窗口1，时间戳为 12s 的事件到达时的 Watermark 恰好触发窗口2。</p>
+</blockquote>
+<h3 id="延迟的数据"><a href="#延迟的数据" class="headerlink" title="延迟的数据"></a>延迟的数据</h3><p>实际工作中会近似 Watermark(t) 之后，还有较小的概率接收到时间戳 t 之前的数据，在 Flink 中将这些数据定义为 “late elements”。<br>我们可以在 Window 中指定允许延迟的最大时间（默认为 0），可以使用如下代码进行设置：</p>
+<h3 id="延迟数据处理机制"><a href="#延迟数据处理机制" class="headerlink" title="延迟数据处理机制"></a>延迟数据处理机制</h3><p>延迟事件是<strong>乱序事件的特例</strong>，和一般乱序事件不同的是他们的乱序程度超出了 <strong>Watermark</strong> 的预计，导致窗口在他们到达之前已经关闭。</p>
+<p>延迟事件出现时窗口已经关闭并产出了计算结果，对于此种情况处理的方法有三种：</p>
+<ul>
+<li>重新激活已经关闭的窗口并重新计算以修正结果</li>
+<li>将延迟事件<strong>收集起来另外处理</strong></li>
+<li>将延迟事件视为<strong>错误信息并丢弃</strong></li>
+</ul>
+<p>Flink <strong>默认的处理方式是第三种直接丢弃</strong>，其他两种方式分别使用 <strong>Side Output 和 Allowed Lateness</strong>——</p>
+<h4 id="Side-Output-机制"><a href="#Side-Output-机制" class="headerlink" title="Side Output 机制"></a>Side Output 机制</h4><p><strong>Side output</strong> 机制可以将延迟事件单独放入一个数据流分支，这会作为 Window 计算结果的副产品，以便用户获取并对其进行特殊处理</p>
+<p>设置 <strong>Allowed Lateness</strong> 之后，迟来的数据同样可以触发窗口，进行输出</p>
+<ul>
+<li>利用 Flink 的 <strong>Side output</strong> 机制，可以获取到这些延迟数据</li>
+<li>需要注意的是，设置了 <strong>Allowed Lateness</strong> 之后，延迟的数据也可能触发窗口，对于 <strong>Session Window</strong> 来说，可能会对窗口进行合并，产生预期外的行为</li>
+<li><strong>Window，窗口类型，Allowed Lateness 允许延迟的时间</strong></li>
+</ul>
+<h4 id="Allowed-Lateness-机制"><a href="#Allowed-Lateness-机制" class="headerlink" title="Allowed Lateness 机制"></a>Allowed Lateness 机制</h4><p><strong>Allowed Lateness</strong> 机制允许用户设置一个**允许的最大延迟时长</p>
+<ul>
+<li>Flink 会在窗口关闭后一直保存窗口的状态直至超过允许延迟时长，这期间的延迟事件不会被丢弃，而是默认会触发窗口重新计算</li>
+<li>因为保存窗口状态需要额外内存，并且如果窗口计算使用了 Process Window Function API 还可能使得每个延迟事件触发一次窗口的全量计算，代价比较大，所以允许延迟时长不宜设得太长，延迟事件也不宜过多</li>
+</ul>
+<h2 id="Part-4-Flink-的容错机制"><a href="#Part-4-Flink-的容错机制" class="headerlink" title="Part 4 Flink 的容错机制"></a>Part 4 Flink 的容错机制</h2><h3 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h3><p>为了保证程序的容错恢复以及程序启动时其状态恢复，Flink 任务都会开启 Checkpoint 或者触发 Savepoint 进行状态保存。</p>
+<ul>
+<li><strong>Checkpoint 机制：</strong>这种机制保证了实时程序运行时，即使突然遇到异常也能够进行自我恢复<ul>
+<li>Checkpoint 对于用户层面，是透明的，用户会感觉不到 Checkpoint 过程的存在</li>
+</ul>
+</li>
+<li><strong>Savepoint 机制：</strong>是在某个时间点程序状态全局镜像，以后程序在进行升级，或者修改并发布等情况，还能从保存的状态为进行启动恢复<ul>
+<li>Savepoint 可以看作是 Checkpoint 在特定时期的一个状态快照</li>
+</ul>
+</li>
+</ul>
+<h3 id="Checkpoint"><a href="#Checkpoint" class="headerlink" title="Checkpoint"></a>Checkpoint</h3><p><strong>Flink</strong> 中基于<strong>异步轻量级的分布式快照技术</strong>提供了 Checkpoints 容错机制，分布式快照可以将同一时间点 Task/Operator 的状态数据全局统一快照处理。</p>
+<p><strong>Flink</strong> 会在输入的数据集上间隔性的生成 <strong>Checkpoint barrier</strong>，通过<strong>栅栏（barrier）</strong>将间隔时间段内的数据划分到相应的 checkpoint 中。</p>
+<ul>
+<li>当应用出现异常时，Operator 就能够从上一次快照中恢复所有算子之前的状态，从而保证数据的一致性</li>
+<li>对于状态占用空间比较小的应用，快照产生过程非常轻量，高频率创建且对 Flink 任务性能影响相对较小。</li>
+<li>Checkpoint 过程中状态数据一般被保存在一个可配置的环境中，通常是在 JobManager 节点或 HDFS 上。</li>
+</ul>
+<h3 id="Checkpoint-的配置"><a href="#Checkpoint-的配置" class="headerlink" title="Checkpoint 的配置"></a>Checkpoint 的配置</h3><ol>
+<li><p>首先，默认情况下 <strong>Flink</strong> 不开启检查点，用户需要在程序中通过调用 <code>enableCheckpointing(n)</code> 方法配置和开启检查点，其中 n 为检查点执行的时间间隔，单位为毫秒</p>
+<blockquote>
+<p><code>env.enableCheckpointing(1000)</code> // 开启检查点并且指定检查点时间间隔为 1000ms，根据实际情况自行选择。如果状态比较大，则建议适当增加该值</p>
+</blockquote>
+</li>
+<li><p>对于 <code>exactly-once</code> 和 <code>at-least-once</code> 语义的选择——</p>
+<ul>
+<li><strong>exactly-once：</strong>保证端到端数据一致性，数据要求高，不允许出现数据丢失和数据重复，Flink 的性能也相对较弱</li>
+<li><strong>at-least-once：</strong>时延和吞吐量要求非常高但对数据的一致性要求不高的场景</li>
+</ul>
+</li>
+<li><p>Flink 默认使用 exactly-once 模式，可以通过 <code>setCheckpoingtingMode()</code> 方法来设定语义模式</p>
+<blockquote>
+<p>env.getCheckpointConfig().setCheckpointingMode(CheckpointingMode.EXACTLY_ONCE)</p>
+</blockquote>
+</li>
+<li><p>Checkpoint 超时时间</p>
+<ul>
+<li>指定每次 Checkpoint 执行过程中的上限时间范围，一旦 Checkpoint 执行时间超过该阈值，Flink 将会中断 Checkpoint 过程，并按照超时处理</li>
+<li>该指标可以通过 <code>setCheckpointTimeout</code> 方法设定，默认 10 分钟</li>
+</ul>
+<blockquote>
+<p>env.getCheckpointConfig().setCheckpointingTimeout(60000)</p>
+</blockquote>
+</li>
+<li><p>检查点之间最小时间间隔</p>
+<ul>
+<li>设定两个检查点之间的<strong>最小时间间隔</strong>，防止出现状态数据过大而导致 Checkpoint 执行时间过长，从而导致检查点积压过多，最终 Flink 应用密集地触发 Checkpoint 操作，会占用大量计算资源而影响到整个应用的性能</li>
+</ul>
+<blockquote>
+<p>env.getCheckpointConfig().setMinPauseBetweenCheckpoints(500)</p>
+</blockquote>
+</li>
+<li><p>最大并行执行的检查点数量</p>
+<ul>
+<li>设定能够同时执行的 Checkpoint 数量。在默认情况下只有一个检查点可以运行，根据用户指定的数量可以同时触发多个 Checkpoint，从而提升 Checkpoint 整体的效率</li>
+</ul>
+<blockquote>
+<p>env.getCheckpointConfig().setMaxConcurrentCheckpoints(500)</p>
+</blockquote>
+</li>
+<li><p>外部检查点</p>
+<ul>
+<li>设定周期性的外部检查点，然后将状态数据持久化到外部系统中</li>
+<li>使用这种方式不会在任务停止的过程中清理掉检查点数据，而是一直保存在外部系统介质中，也可以通过从外部检查点中对任务进行恢复</li>
+</ul>
+<blockquote>
+<p>env.getCheckpointConfig().enableExternalizedCheckpoints(ExternalizedCheckpointCleanup.RETAIN_ON_CANCELLATION)</p>
+</blockquote>
+</li>
+</ol>
+<h3 id="作业恢复数据的方法"><a href="#作业恢复数据的方法" class="headerlink" title="作业恢复数据的方法"></a>作业恢复数据的方法</h3><p>Flink 在 Cancel 时允许在外部介质保留 Checkpoint 。</p>
+<p>同时，Flink 还具有 <strong>SavePoint 机制</strong>。</p>
+<p><strong>Savepoints</strong> 是检查点的一种特殊实现，底层其实是使用 Checkpoints 的机制——</p>
+<ul>
+<li>Savepoints 是用户以手工命令的方式触发，并将结果持久化到指定的存储路径中</li>
+<li>目的是帮助用户在升级和维护集群过程中保存系统中的状态数据</li>
+<li>避免因为停机运维或者升级应用等正常终止应用的操作而导致系统无法恢复到原有的计算状态的情况，从而无法实现端到端的 Exactly-Once 语义保证</li>
+</ul>
+<h3 id="Savepoint-和-Checkpoint-的联系和区别"><a href="#Savepoint-和-Checkpoint-的联系和区别" class="headerlink" title="Savepoint 和 Checkpoint 的联系和区别"></a>Savepoint 和 Checkpoint 的联系和区别</h3><p><img src="https://alipicbed.oss-cn-beijing.aliyuncs.com/img/image-20210921194503088.png" srcset="/img/loading.gif" lazyload alt="Savepoint 和 Checkpoint"></p>
+<p>Savepoint 与 Checkpoint 类似，同样是把状态存储到外部介质。当作业失败时，可以从外部恢复。Savepoint 与 Checkpoint 有什么区别呢？</p>
+<ul>
+<li>从触发管理方式来讲，Checkpoint 由 Flink 自动触发并管理，而 Savepoint 由用户手动触发并人工管理</li>
+<li>从用途来讲，Checkpoint 在 Task 发生异常时快速恢复，例如网络抖动或超时异常，而 Savepoint 有计划地进行备份，使作业能停止后再恢复，例如修改代码、调整并发</li>
+<li>最后从特点来讲，Checkpoint 比较轻量级，作业出现问题会自动从故障中恢复，在作业停止后默认清除；而 Savepoint 比较持久，以标准格式存储，允许代码或配置发生改变，恢复需要启动作业手动指定一个路径恢复</li>
+</ul>
+<h3 id="状态的存储方式-MemoryStateBackend"><a href="#状态的存储方式-MemoryStateBackend" class="headerlink" title="状态的存储方式 - MemoryStateBackend"></a>状态的存储方式 - MemoryStateBackend</h3><h4 id="构造方式"><a href="#构造方式" class="headerlink" title="构造方式"></a>构造方式</h4><blockquote>
+<p>MemoryStateBackend (int maxStateSize, boolean asynchronousSnapshots)</p>
+</blockquote>
+<h4 id="存储方式"><a href="#存储方式" class="headerlink" title="存储方式"></a>存储方式</h4><ul>
+<li>State：TaskManager 内存</li>
+<li>Checkpoint：JobManager 内存</li>
+</ul>
+<h4 id="容量限制"><a href="#容量限制" class="headerlink" title="容量限制"></a>容量限制</h4><ul>
+<li>单个 State maxStateSize 默认 5 M</li>
+<li>maxStateSize &lt;= akka.framesize，默认 10 M</li>
+<li>总大小不超过 JobManager 的内存</li>
+</ul>
+<h4 id="推荐使用的场景"><a href="#推荐使用的场景" class="headerlink" title="推荐使用的场景"></a>推荐使用的场景</h4><ul>
+<li>本地测试</li>
+<li>几乎无状态的作业，比如 ETL</li>
+</ul>
+<h3 id="状态的存储方式-FsStateBackend"><a href="#状态的存储方式-FsStateBackend" class="headerlink" title="状态的存储方式 - FsStateBackend"></a>状态的存储方式 - FsStateBackend</h3><h4 id="构造方式-1"><a href="#构造方式-1" class="headerlink" title="构造方式"></a>构造方式</h4><blockquote>
+<p>FsStateBackend (URI checkpointDataUri, boolean asynchronousSnapshots)</p>
+</blockquote>
+<h4 id="存储方式-1"><a href="#存储方式-1" class="headerlink" title="存储方式"></a>存储方式</h4><ul>
+<li>State：TaskManager 内存</li>
+<li>Checkpoint：外部文件存储系统（本地或 HDFS）</li>
+</ul>
+<h4 id="容量限制-1"><a href="#容量限制-1" class="headerlink" title="容量限制"></a>容量限制</h4><ul>
+<li>单 TaskManager 上 State 总量不超过它的内存</li>
+<li>总大小不超过配置的文件系统容量</li>
+</ul>
+<h4 id="推荐使用的场景-1"><a href="#推荐使用的场景-1" class="headerlink" title="推荐使用的场景"></a>推荐使用的场景</h4><ul>
+<li>常规使用状态的作业</li>
+<li>需要开启 HA 的作业</li>
+<li>可以在生产场景使用</li>
+</ul>
+<h3 id="状态的存储方式-RocksDBStateBackend"><a href="#状态的存储方式-RocksDBStateBackend" class="headerlink" title="状态的存储方式 - RocksDBStateBackend"></a>状态的存储方式 - RocksDBStateBackend</h3><h4 id="构造方式-2"><a href="#构造方式-2" class="headerlink" title="构造方式"></a>构造方式</h4><blockquote>
+<p>RocksDBStateBackend (URI checkpointDataUri, boolean enableIncrementalCheckpointing)</p>
+</blockquote>
+<h4 id="存储方式-2"><a href="#存储方式-2" class="headerlink" title="存储方式"></a>存储方式</h4><ul>
+<li>State：TaskManager 上的 KV 数据库（实际为内存 + 磁盘）</li>
+<li>Checkpoint：外部文件存储系统（本地或 HDFS）</li>
+</ul>
+<h4 id="容量限制-2"><a href="#容量限制-2" class="headerlink" title="容量限制"></a>容量限制</h4><ul>
+<li>单 TaskManager 上 State 总量不超过它的内存 + 磁盘</li>
+<li>单 Key 最大 2G</li>
+<li>总大小不超过配置的文件系统容量</li>
+</ul>
+<h4 id="推荐使用的场景-2"><a href="#推荐使用的场景-2" class="headerlink" title="推荐使用的场景"></a>推荐使用的场景</h4><ul>
+<li>超大状态的作业，例如 TB 级别窗口聚合</li>
+<li>需要开启 HA 的作业</li>
+<li>对状态读写性能要求不高的作业</li>
+<li>可以在生产场景使用</li>
+</ul>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/Big-Data-Notes/">Big Data Notes</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/Notes/">Notes</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2021/09/22/LeetCode-Notes-1557/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">LeetCode Notes - 1557</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/09/13/LeetCode-Notes-450/">
+                        <span class="hidden-mobile">LeetCode Notes - 450</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.3/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.1/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js" ></script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>
